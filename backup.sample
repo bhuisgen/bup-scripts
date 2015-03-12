@@ -1,0 +1,70 @@
+#!/bin/bash
+
+BACKUP_NAME=$HOSTNAME            # backup name
+BACKUP_DIRS=/etc:/root:/home     # directories list to backup
+BACKUP_REMOTE=0                  # remote backup
+BACKUP_HOST=192.168.0.254        # remote server
+
+#
+# script
+#
+
+PATH=$PATH:/usr/bin
+NAME=backup-$BACKUP_NAME
+LOCK_FILE=/tmp/$NAME.lock
+ERROR_FILE=/tmp/$NAME.err
+
+function error {
+    echo "$NAME[$$] $1"
+
+    touch $ERROR_FILE
+    rm -f $LOCK_FILE
+
+    exit 1
+}
+
+function log {
+    echo "$NAME[$$] $1"
+}
+
+trap 'touch $ERROR_FILE' SIGHUP SIGINT SIGTERM
+
+[ $(which bup) ] || error "bup not found"
+[ -z $BACKUP_NAME ] && error "BACKUP_NAME not set"
+[ -z $BACKUP_DIRS ] && error "BACKUP_DIRS not set"
+[ -z $BACKUP_REMOTE ] && error "BACKUP_REMOTE not set"
+[ "$BACKUP_REMOTE" == 1 ] && [ -z $BACKUP_HOST ] && error "BACKUP_HOST not set"
+
+[ ! -f $LOCK_FILE ] || error "script already running"
+touch $LOCK_FILE
+rm -f $ERROR_FILE
+
+REMOTE=""
+if [ "$BACKUP_REMOTE" == 1 ]; then
+    REMOTE="on $BACKUP_HOST"
+fi
+
+DIRS=${BACKUP_DIRS//:/ }
+
+log "Indexing files..."
+
+for DIR in $DIRS
+do
+    bup index -ux $REMOTE $DIR || error "index error"
+done
+
+log "Saving files..."
+
+for DIR in $DIRS
+do
+    SUFFIX=${DIR:1}
+    SUFFIX=${SUFFIX//\//_}
+
+    bup $REMOTE save -n $BACKUP_NAME-$SUFFIX $DIR || error "save error"
+done
+
+log "Backup done"
+
+rm -f $LOCK_FILE
+
+# end
