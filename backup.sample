@@ -47,7 +47,9 @@ rm -f $ERROR_FILE
 
 [ $(which bup) ] || error "bup not found"
 
-[ ! -d BUP_PATH ] && bup init
+if [[ -z $BUP_DIR || ! -d $BUP_DIR ]]; then
+   bup init
+fi
 
 REMOTE=""
 if [ "$BACKUP_REMOTE" == 1 ]; then
