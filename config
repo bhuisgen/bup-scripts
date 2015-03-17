@@ -23,7 +23,7 @@ PATH=$PATH:/usr/bin
 # fuse mountpoint
 #
 
-MOUNT_PATH=/mnt/backup/backup/store
+MOUNT_PATH=/mnt/storage/backup/store
 
 MOUNT_OPTIONS=""
 #MOUNT_OPTIONS="-o"
