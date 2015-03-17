@@ -28,7 +28,7 @@ function log {
 
 trap 'touch $ERROR_FILE' SIGHUP SIGINT SIGTERM
 
-if [ -r $(dirname $0)/config ]; then
+if [ ! -r $(dirname $0)/config ]; then
     error "config file not found/not readable"
     
     exit 1

@@ -2,7 +2,7 @@
 
 set -e
 
-if [ -r $(dirname $0)/config ]; then
+if [ ! -r $(dirname $0)/config ]; then
     echo "config file not found/not readable"
     
     exit 1
