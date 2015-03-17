@@ -10,7 +10,7 @@ fi
 
 . $(dirname $0)/config
 
-if [ !-z "$1" ]; then
+if [ ! -z "$1" ]; then
     BUP_PATH=$1
 fi
 
