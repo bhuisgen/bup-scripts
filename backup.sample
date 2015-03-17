@@ -9,13 +9,12 @@ BACKUP_HOST=192.168.0.254        # remote server
 # script
 #
 
-PATH=$PATH:/usr/bin
 NAME=backup-$BACKUP_NAME
 LOCK_FILE=/tmp/$NAME.lock
 ERROR_FILE=/tmp/$NAME.err
 
 function error {
-    echo "$NAME[$$] $1"
+    logger -t "$NAME[$$]" -s -p user.error -- $1
 
     touch $ERROR_FILE
     rm -f $LOCK_FILE
@@ -24,12 +23,19 @@ function error {
 }
 
 function log {
-    echo "$NAME[$$] $1"
+    logger -t "$NAME[$$]" -s -p user.notice -- $1
 }
 
 trap 'touch $ERROR_FILE' SIGHUP SIGINT SIGTERM
 
-[ $(which bup) ] || error "bup not found"
+if [ -r $(dirname $0)/config ]; then
+    error "config file not found/not readable"
+    
+    exit 1
+fi
+
+. $(dirname $0)/config
+
 [ -z $BACKUP_NAME ] && error "BACKUP_NAME not set"
 [ -z $BACKUP_DIRS ] && error "BACKUP_DIRS not set"
 [ -z $BACKUP_REMOTE ] && error "BACKUP_REMOTE not set"
@@ -39,6 +45,10 @@ trap 'touch $ERROR_FILE' SIGHUP SIGINT SIGTERM
 touch $LOCK_FILE
 rm -f $ERROR_FILE
 
+[ $(which bup) ] || error "bup not found"
+
+[ ! -d BUP_PATH ] && bup init
+
 REMOTE=""
 if [ "$BACKUP_REMOTE" == 1 ]; then
     REMOTE="on $BACKUP_HOST"
@@ -46,14 +56,14 @@ fi
 
 DIRS=${BACKUP_DIRS//:/ }
 
-log "Indexing files..."
+log "indexing files"
 
 for DIR in $DIRS
 do
     bup index -ux $REMOTE $DIR || error "index error"
 done
 
-log "Saving files..."
+log "saving files"
 
 for DIR in $DIRS
 do
