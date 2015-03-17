@@ -1,0 +1,29 @@
+#
+# config file
+#
+
+PATH=$PATH:/usr/bin
+
+#
+# bup path
+#
+
+# default is to not force BUP_PATH
+
+# static storage
+#BUP_PATH=/mnt/storage/backup/bup
+
+# dynamic storage by month
+#BUP_PATH=/mnt/storage/backup/bup-$(date +%Y%m)
+
+# dynamic storage by year
+#BUP_PATH=/mnt/storage/backup/bup-$(date +%Y)
+
+#
+# fuse mountpoint
+#
+
+MOUNT_PATH=/mnt/backup/backup/store
+
+MOUNT_OPTIONS=""
+#MOUNT_OPTIONS="-o"
