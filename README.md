@@ -8,11 +8,12 @@ Boris HUISGEN <bhuisgen@hbis.fr>
 
 ## Configuration
 
+    # cp config.dist config
     # vim config
 
 ## Backup a host
 
-    # cp backup.sample backup-myhost.sh
+    # cp backup.sh.dist backup-myhost.sh
     # chmod +x backup-myhost.sh
     # vim backup-myhost.sh
     # ./backup-myhost.sh
