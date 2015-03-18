@@ -75,7 +75,7 @@ do
     bup $REMOTE save -n $BACKUP_NAME-$SUFFIX $DIR || error "save error"
 done
 
-log "Backup done"
+log "backup done"
 
 rm -f $LOCK_FILE
 
