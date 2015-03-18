@@ -5,25 +5,25 @@
 PATH=$PATH:/usr/bin
 
 #
-# bup path
+# bup directory
 #
 
-# default is to not force BUP_DIR
+# default is to not set BUP_DIR
 
 # static storage
-#BUP_DIR=/mnt/storage/backup/bup
+#BUP_DIR=/mnt/backup/bup
 
-# dynamic storage by month
-#BUP_DIR=/mnt/storage/backup/bup-$(date +%Y%m)
+# storage by month
+#BUP_DIR=/mnt/backup/bup/$(date +%Y%m)
 
-# dynamic storage by year
-#BUP_DIR=/mnt/storage/backup/bup-$(date +%Y)
+# storage by year
+#BUP_DIR=/mnt/backup/bup/$(date +%Y)
 
 #
-# fuse mountpoint
+# store mountpoint
 #
 
-MOUNT_PATH=/mnt/storage/backup/store
+MOUNT_PATH=/mnt/backup/store
 
 MOUNT_OPTIONS=""
 #MOUNT_OPTIONS="-o"
