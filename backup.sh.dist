@@ -60,10 +60,7 @@ DIRS=${BACKUP_DIRS//:/ }
 
 log "indexing files"
 
-for DIR in $DIRS
-do
-    bup index -ux $REMOTE $DIR || error "index error"
-done
+bup index -ux $REMOTE $DIRS || error "index error"
 
 log "saving files"
 
