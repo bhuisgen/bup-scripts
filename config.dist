@@ -2,7 +2,8 @@
 # config file
 #
 
-PATH=$PATH:/usr/bin
+PATH=/bin:/usr/bin
+export PATH
 
 #
 # bup directory
@@ -18,6 +19,8 @@ PATH=$PATH:/usr/bin
 
 # storage by year
 #BUP_DIR=/mnt/backup/bup/$(date +%Y)
+
+#export BUP_DIR
 
 #
 # store mountpoint
