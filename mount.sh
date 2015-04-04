@@ -11,7 +11,8 @@ fi
 . $(dirname $0)/config
 
 if [ ! -z "$1" ]; then
-    BUP_PATH=$1
+    BUP_DIR=$1
+    export BUP_DIR
 fi
 
 mkdir -p $MOUNT_PATH
