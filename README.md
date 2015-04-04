@@ -26,7 +26,7 @@ Don't forget to add the cron script in your crontab:
 
     # crontab -e
 
-    0 1 * * * /bin/bash /mnt/storage/backup/bup-scripts/cron.sh
+    0 1 * * * /bin/bash /mnt/backup/bup-scripts/cron.sh
 
 ## Mount backup store
 
@@ -35,5 +35,5 @@ Don't forget to add the cron script in your crontab:
 
 To mount a specific bup dir you can pass it in argument:
 
-    # ./mount.sh /mnt/storage/backup/bup/201503
+    # ./mount.sh /mnt/backup/bup/201503
     # ls -l path/to/store
