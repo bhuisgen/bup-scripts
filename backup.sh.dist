@@ -2,8 +2,8 @@
 
 BACKUP_NAME=$HOSTNAME            # backup name
 BACKUP_DIRS=/etc:/root:/home     # directories list to backup
-BACKUP_REMOTE=0                  # remote backup
-BACKUP_HOST=192.168.0.254        # remote server
+BACKUP_REMOTE=0                  # enable remote backup
+BACKUP_HOST=$HOSTNAME            # remote host
 
 #
 # script
@@ -60,7 +60,7 @@ DIRS=${BACKUP_DIRS//:/ }
 
 log "indexing files"
 
-bup index -ux $REMOTE $DIRS || error "index error"
+bup $REMOTE index -ux $DIRS || error "index error"
 
 log "saving files"
 
