@@ -28,13 +28,13 @@ function log {
 
 trap 'touch $ERROR_FILE' SIGHUP SIGINT SIGTERM
 
-if [ ! -r $(dirname $0)/config ]; then
+if [ ! -r $(dirname $0)/../config ]; then
     error "config file not found/not readable"
     
     exit 1
 fi
 
-. $(dirname $0)/config
+. $(dirname $0)/../config
 
 [ -z $BACKUP_NAME ] && error "BACKUP_NAME not set"
 [ -z $BACKUP_DIRS ] && error "BACKUP_DIRS not set"

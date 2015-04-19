@@ -13,16 +13,11 @@ Boris HUISGEN <bhuisgen@hbis.fr>
 
 ## Backup a host
 
-    # cp backup.sh.dist myhost.sh
-    # vim myhost.sh
-    # chmod +x myhost.sh
-    # ./myhost.sh
+    # cp backup.sh.dist ./jobs/myhost
+    # vim ./jobs/myhost
+    # chmod +x ./jobs/myhost
 
-To backup this host by cron every day:
-
-    # mv ./myhost.sh jobs/
-
-Don't forget to add the cron script in your crontab:
+To run backups every day add the cron script in your crontab:
 
     # crontab -e
 
